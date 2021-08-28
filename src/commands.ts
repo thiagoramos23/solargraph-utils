@@ -19,7 +19,7 @@ var spawnWithBash = function(cmd, opts): child_process.ChildProcess {
 		// and rbenv.
 		var shell = process.env.SHELL;
 		if (!shell) {
-			shell = '/bin/bash';
+			shell = '/bin/zsh';
 		}
 		if (shell.endsWith('bash') || shell.endsWith('zsh')) {
 			var shellCmd = shellEscape(cmd);
@@ -28,11 +28,7 @@ var spawnWithBash = function(cmd, opts): child_process.ChildProcess {
 			}
 			var shellArgs = [shellCmd];
 			shellArgs.unshift('-c');
-			if (shell.endsWith('zsh')) {
-				shellArgs.unshift('-l');
-			} else {
-				shellArgs.unshift('-l');
-			}
+			shellArgs.unshift('-l');
 			return child_process.spawn(shell, shellArgs, opts);
 		} else {
 			return crossSpawn(cmd.shift(), cmd, opts);
